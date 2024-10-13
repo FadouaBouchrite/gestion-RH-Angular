@@ -1,0 +1,5 @@
+<nav class="navbar">
+    <a routerLink="/">Home</a>
+    <a *ngIf="userId" [routerLink]="['/profile', userId]">Mon Profil</a>
+  </nav>
+  <router-outlet></router-outlet>

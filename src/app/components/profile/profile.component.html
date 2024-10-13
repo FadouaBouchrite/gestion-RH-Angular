@@ -1,0 +1,45 @@
+<!-- profile.component.html -->
+<div *ngIf="isLoading">
+    <p>Loading user information...</p>
+  </div>
+  
+  <div *ngIf="!isLoading && user">
+    <h2>{{ user.name }}</h2>
+  
+    <p *ngIf="user.email">Email: {{ user.email }}</p>
+    <p *ngIf="user.linkedIn">LinkedIn: {{ user.linkedIn }}</p>
+    <p *ngIf="user.twitter">Twitter: {{ user.twitter }}</p>
+  
+    <img *ngIf="user.picture" [src]="'data:image/jpeg;base64,' + user.picture" alt="Profile Picture" />
+  
+    <button (click)="openEditModal()">
+      <i class="fa fa-cog"></i>
+    </button>
+  </div>
+  
+  <div *ngIf="isEditModalOpen" class="modal" role="dialog" aria-modal="true">
+    <div class="modal-content">
+      <h3>Edit Information</h3>
+  
+      <form (ngSubmit)="updateUser()">
+        <label for="name">Name:</label>
+        <input id="name" [(ngModel)]="editUser.name" name="name" required />
+  
+        <label for="email">Email:</label>
+        <input id="email" [(ngModel)]="editUser.email" name="email" required />
+  
+        <label for="linkedIn">LinkedIn:</label>
+        <input id="linkedIn" [(ngModel)]="editUser.linkedIn" name="linkedIn" />
+  
+        <label for="twitter">Twitter:</label>
+        <input id="twitter" [(ngModel)]="editUser.twitter" name="twitter" />
+  
+        <label for="password">Password:</label>
+        <input id="password" [(ngModel)]="editPassword" name="password" type="password" required />
+  
+        <button type="submit">Save Changes</button>
+        <button type="button" (click)="closeEditModal()">Cancel</button>
+      </form>
+    </div>
+  </div>
+  
