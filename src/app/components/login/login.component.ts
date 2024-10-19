@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router'; 
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -10,9 +11,8 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   email: string = '';
   password: string = '';
-
-  constructor(private http: HttpClient, private router: Router) {}
-
+  
+  constructor(private userService: UserService,private router: Router) {}
   onSubmit() {
     if (!this.email || !this.password) {
       console.error('Veuillez remplir tous les champs.');
@@ -26,12 +26,14 @@ export class LoginComponent {
   
     console.log('Données envoyées :', userData); 
   
-    this.http.post('http://localhost:8080/auth/login', userData)
+    this.userService.login(userData)
       .subscribe(
         (response: any) => { 
           console.log('Réponse du serveur :', response);
           const token = response.token;
           const role = response.role;
+          console.log('token'+token);  console.log('role'+role);
+          
 
           if (token && role) {
             localStorage.setItem('token', token);
