@@ -13,12 +13,17 @@ import { Routes, RouterModule } from '@angular/router';
 import path from 'path';
 import { RhDashComponent } from './components/rh-dash/rh-dash.component';
 import { EmployeDashComponent } from './components/employe-dash/employe-dash.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { CongeRhComponent } from './components/conge-rh/conge-rh.component';
+
+
 
 const appRoutes:Routes=[
   {path:'' , component:LoginComponent},
   {path:'login' , component:LoginComponent},
   {path:'rh' , component:RhDashComponent},
-  {path:'employe' , component:EmployeDashComponent}
+  {path:'employe' , component:EmployeDashComponent},
+  {path:'conge',component:CongeRhComponent}
 ]
 
 
@@ -29,7 +34,9 @@ const appRoutes:Routes=[
     ProfileComponent,
     LoginComponent,
     RhDashComponent,
-    EmployeDashComponent
+    EmployeDashComponent,
+    SidebarComponent,
+    CongeRhComponent
   ],
   imports: [
     BrowserModule,
