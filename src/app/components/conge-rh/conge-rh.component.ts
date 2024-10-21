@@ -24,12 +24,9 @@ export class CongeRhComponent implements OnInit {
       this.congeService.getAllNonValidatedConges(this.token).subscribe({
         next: (response: any) => {
           console.log('Réponse de l\'API:', response);
-  
           if (Array.isArray(response)) {
-            // Si la réponse est directement un tableau
             this.conges = response; 
           } else if (response && response.data && Array.isArray(response.data)) {
-            // Si la réponse contient un attribut data qui est un tableau
             this.conges = response.data;
           } else {
             console.error('Format de réponse inattendu:', response);

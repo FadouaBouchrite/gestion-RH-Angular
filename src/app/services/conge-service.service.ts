@@ -28,4 +28,24 @@ export class CongeServiceService {
     const headers=this.getHeaders()
     return this.http.put(this.host + `/rh/rejectConge/${id}`, {} ,{headers})
   }
+  createConge(congeData:Object,token:string){
+    this.token=token
+    const headers=this.getHeaders()
+    return this.http.post(this.host+"/employe/create_conge",congeData,{headers})
+  }
+  getCongesByUser(token:string){
+    this.token=token
+    const headers=this.getHeaders()
+    return this.http.get(this.host+"/employe/getConges",{headers})
+  }
+  deleteDemande(id:number,token:string){
+    this.token=token
+    const headers=this.getHeaders()
+    return this.http.delete(this.host+`/employe/deleteConge/${id}`,{headers})
+  }
+  updateDemande(id:number,token:string){
+    this.token=token
+    const headers=this.getHeaders()
+    return this.http.put(this.host+`/employe/updateConge/${id}`,{headers})
+  }
 }

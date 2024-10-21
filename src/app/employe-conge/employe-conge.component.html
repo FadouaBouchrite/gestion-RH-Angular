@@ -1,0 +1,42 @@
+<app-employe-sidbar></app-employe-sidbar>
+<div class="pc-container">
+    <div class="pcoded-content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5>Ajouter une demande pour un conge</h5>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <form>
+                                    <div class="form-group">
+                                        <label class="form-label" for="exampleInputEmail1">Date de debut</label>
+                                        <input name="dateDebut" [(ngModel)]="dateDebut" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Entrer la date de debut que vous voulez">
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-6">
+                                <form>
+                                    <div class="form-group">
+                                        <label class="form-label">Date de fin</label>
+                                        <input name="dateFin" [(ngModel)]="dateFin" type="text" class="form-control" placeholder="Entrer la date de fin que vous voulez">
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-12">
+                                <form>
+                                    <div class="form-group">
+                                        <label class="form-label" for="exampleFormControlTextarea1">Quel est la raison pour cet conge ?</label>
+                                        <textarea name="motif" [(ngModel)]="motif" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                    </div>
+                                    <button type="submit" (click)="onSubmit()" class="btn  btn-primary">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>

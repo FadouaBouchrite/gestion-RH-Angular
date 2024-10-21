@@ -15,6 +15,8 @@ import { RhDashComponent } from './components/rh-dash/rh-dash.component';
 import { EmployeDashComponent } from './components/employe-dash/employe-dash.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { CongeRhComponent } from './components/conge-rh/conge-rh.component';
+import { EmployeCongeComponent } from './employe-conge/employe-conge.component';
+import { EmployeSidbarComponent } from './employe-sidbar/employe-sidbar.component';
 
 
 
@@ -36,7 +38,9 @@ const appRoutes:Routes=[
     RhDashComponent,
     EmployeDashComponent,
     SidebarComponent,
-    CongeRhComponent
+    CongeRhComponent,
+    EmployeCongeComponent,
+    EmployeSidbarComponent
   ],
   imports: [
     BrowserModule,
