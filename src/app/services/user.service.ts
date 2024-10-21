@@ -87,4 +87,23 @@ export class UserService {
     }
     return null;
   }
+  logout() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
+  }
+
+  isAuthenticated() {
+    const token = localStorage.getItem("token");
+    return token !== null;
+  }
+
+  isRH() {
+    const role = localStorage.getItem("role");
+    return role === "RH";
+  }
+
+  isEmploye() {
+    const role = localStorage.getItem("role");
+    return role === "EMPLOYE";
+  }
 }

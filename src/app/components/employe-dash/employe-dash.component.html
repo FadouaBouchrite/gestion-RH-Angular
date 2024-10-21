@@ -1,2 +1,35 @@
-
-<p>employe-dash works!</p>
+<app-employe-sidbar></app-employe-sidbar>
+<section class="pc-container">
+  <div class="pcoded-content">
+    <div class="row">
+      <div class="col-xl-12 col-md-12">
+        <div class="card">
+          <div class="card-body table-border-style">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">Conge</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let c of conges">
+                    <td>{{ c.motif }}</td>
+                    <td>{{ c.status }}</td>
+                    <td *ngIf="c.id">
+                      <img (click)="openDetailModal(c)" style="width: 25px; height: 25px;" src="images/pencil.png">
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      <img (click)="deleteDemande(c.id)" style="width: 30px; height: 30px;" src="images/delete.png">
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
