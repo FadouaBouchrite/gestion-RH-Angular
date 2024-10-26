@@ -17,7 +17,10 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { CongeRhComponent } from './components/conge-rh/conge-rh.component';
 import { EmployeCongeComponent } from './employe-conge/employe-conge.component';
 import { EmployeSidbarComponent } from './employe-sidbar/employe-sidbar.component';
-
+import { EmplAbsenceComponent } from './empl-absence/empl-absence.component';
+import { RhEmployesComponent } from './components/rh-employes/rh-employes.component';
+import { AddUserComponent } from './components/add-user/add-user.component';
+import { RhAbsencesComponent } from './rh-absences/rh-absences.component';
 
 
 const appRoutes:Routes=[
@@ -40,7 +43,11 @@ const appRoutes:Routes=[
     SidebarComponent,
     CongeRhComponent,
     EmployeCongeComponent,
-    EmployeSidbarComponent
+    EmployeSidbarComponent,
+    EmplAbsenceComponent,
+    RhEmployesComponent,
+    AddUserComponent,
+    RhAbsencesComponent
   ],
   imports: [
     BrowserModule,

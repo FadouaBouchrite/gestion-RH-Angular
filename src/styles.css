@@ -1,21 +1,4 @@
 @charset "UTF-8";
-.navbar {
-    background-color: #f8f9fa;
-    padding: 1rem;
-  }
-  
-  .navbar a {
-    margin-right: 1rem;
-    text-decoration: none;
-    color: #007bff;
-  }
-  
-  .navbar a:hover {
-    text-decoration: underline;
-  }
-  
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 
 :root {
@@ -64,7 +47,7 @@ body {
     font-weight: 400;
     line-height: 1.5;
     color: #293240;
-    background-color: #f0f2f8;
+    background-color: #f0f2f87e;
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
@@ -72,7 +55,20 @@ body {
 [tabindex="-1"]:focus:not(:focus-visible) {
     outline: 0 !important;
 }
-
+.navbar {
+    background-color: #f8f9fa;
+    padding: 1rem;
+  }
+  
+  .navbar a {
+    margin-right: 1rem;
+    text-decoration: none;
+    color: #007bff;
+  }
+  
+  .navbar a:hover {
+    text-decoration: underline;
+  }
 hr {
     margin: 1rem 0;
     color: inherit;

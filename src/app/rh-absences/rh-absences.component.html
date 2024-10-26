@@ -1,11 +1,11 @@
-<app-employe-sidbar></app-employe-sidbar>
+<app-sidebar></app-sidebar>
 <div class="pc-container">
     <div class="pcoded-content">
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <h5>Ajouter une demande pour un conge</h5>
+                        <h5>Ajouter une absence</h5>
                         <hr>
                         <div class="row">
                             <div class="col-md-6">
@@ -26,10 +26,12 @@
                             </div>
                             <div class="col-md-12">
                                 <form>
-                                    <div class="form-group">
-                                        <label class="form-label" for="exampleFormControlTextarea1">Quel est la raison pour cet conge ?</label>
-                                        <textarea name="motif" [(ngModel)]="motif" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                                    </div>
+                                    <label class="form-label" for="inputState">Selectionnez un employe</label>
+                                    <select id="inputState" name="email" [(ngModel)]="email" [ngModelOptions]="{standalone: true}" class="form-control" >
+                                            <option value="" disabled selected>Sélectionnez un employé</option>
+                                            <option *ngFor="let empl of employes" [value]="empl.email">{{ empl.lastName }} {{ empl.firstName }}</option>
+                                    </select>
+                                    <br>
                                     <button type="submit" (click)="onSubmit()" class="btn  btn-primary">Submit</button>
                                 </form>
                             </div>
@@ -40,4 +42,3 @@
         </div>
     </div>
     </div>
-   
