@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { Conge } from '../models/conge/conge.module';
 import { CongeServiceService } from '../services/conge-service.service';
+import { Conge } from '../models/conge/conge.module';
+
+
 
 @Component({
   selector: 'app-employe-conge',
@@ -9,32 +11,48 @@ import { CongeServiceService } from '../services/conge-service.service';
 })
 export class EmployeCongeComponent {
   token: string | null = '';
-  dateDebut: string= '';
-  dateFin: string= '';
+  dateDebut: Date= new Date();
+  dateFin: Date= new Date();
   motif: string= '';
+ 
+  
    constructor(private congeService:CongeServiceService){}
 
-   onSubmit(){
+   onSubmit() {
     if (!this.dateDebut || !this.dateFin || !this.motif) {
       console.error('Veuillez remplir tous les champs.');
       return;
     }
-    const congeData={
-      dateDebut:this.dateDebut,
-      dateFin:this.dateFin,
-      motif:this.motif
+    this.dateDebut = new Date(this.dateDebut);
+    this.dateFin = new Date(this.dateFin);
+  
+    if (isNaN(this.dateDebut.getTime()) || isNaN(this.dateFin.getTime())) {
+      console.error('Dates invalides.');
+      return;
     }
+    // Formatage des dates au format YYYY-MM-DD
+    const formattedDateDebut = this.dateDebut.toISOString().split('T')[0];
+    const formattedDateFin = this.dateFin.toISOString().split('T')[0];
+  
+    const congeData = {
+      dateDebut: formattedDateDebut,
+      dateFin: formattedDateFin,
+      motif: this.motif
+    };
+  
     this.token = localStorage.getItem("token");
-    if (this.token!=null)
-    this.congeService.createConge(congeData,this.token).subscribe({
-      next: (response) => {
-        this.dateDebut=""
-        this.dateFin=""
-        this.motif=""
-      },
-      error: (err) => {
-        console.error('Erreur lors du rejet du congé', err);
-      }
-    });
-   }
+    if (this.token != null) {
+      this.congeService.createConge(congeData, this.token).subscribe({
+        next: (response) => {
+          // Réinitialiser les champs après l'envoi
+          this.dateDebut = new Date();
+          this.dateFin = new Date();
+          this.motif = "";
+        },
+        error: (err) => {
+          console.error('Erreur lors du rejet du congé', err);
+        }
+      });
+    }
+  }
 }

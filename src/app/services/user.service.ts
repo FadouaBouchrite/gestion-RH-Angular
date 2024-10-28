@@ -10,8 +10,15 @@ import { User } from '../models/user.model'; // Assurez-vous que ce modèle est 
 })
 export class UserService {
   private baseUrl = 'http://localhost:8080/employe'; // Changez l'URL si nécessaire
+  private endpoint="http://localhost:8080"
 
   constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object) {}
+  token!:string
+  private getHeaders() {
+    return new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+  }
 
   // Récupérer l'ID de l'utilisateur connecté à partir du localStorage
   getUserId(): number | null {
@@ -106,4 +113,40 @@ export class UserService {
     const role = localStorage.getItem("role");
     return role === "EMPLOYE";
   }
+
+  getEmployes(token:string){
+    this.token=token
+    const headers=this.getHeaders()
+    return this.http.get(this.endpoint+"/rh/getEmployes",{headers})
+  }
+
+  getRhs(token:string){
+    this.token=token
+    const headers=this.getHeaders()
+    return this.http.get(this.endpoint+"/rh/getRhs",{headers})
+  }
+
+  createUser(token:string,userData:any){
+    this.token=token
+    const headers=this.getHeaders()
+    return this.http.post("http://localhost:8080/rh/addUser",userData,{headers})
+  }
+
+  addUsers(token:string,file:FormData){
+    this.token=token
+    const headers=this.getHeaders()
+    return this.http.post(this.endpoint+"/rh/addUsers",file,{headers})
+  }
+
+  modifierUser(token: string, userData: any, id: number) {
+    this.token = token;
+    const headers = this.getHeaders();
+    return this.http.put(this.endpoint + `/rh/editUser/${id}`, userData, { headers });
+  }
+  deleteUser(token: string, id: number) {
+    this.token = token;
+    const headers = this.getHeaders();
+    return this.http.delete(this.endpoint + `/rh/deleteUser/${id}`, { headers });
+  }
+
 }

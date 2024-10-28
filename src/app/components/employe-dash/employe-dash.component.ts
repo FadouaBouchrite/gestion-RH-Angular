@@ -11,6 +11,9 @@ export class EmployeDashComponent {
   conges: Array<Conge> = []; 
   demande!: Conge | null;
   token: string | null = '';
+  isEditModalOpen=false
+  isDeleteModalOpen=false
+  conge!:Conge
 
   constructor(private congeService: CongeServiceService) {}
 
@@ -18,10 +21,6 @@ export class EmployeDashComponent {
     this.token = localStorage.getItem("token");
     if (this.token != null)
       this.getCongesByUser(this.token);
-  }
-
-  openDetailModal(c: Conge) {
-    this.demande = c; 
   }
 
   getCongesByUser(token: string) {
@@ -46,12 +45,17 @@ export class EmployeDashComponent {
     }
   }
 
-  deleteDemande(id: number) {
+  deleteDemande(id: number |undefined) {
+    if (id === undefined) {
+      console.error("ID utilisateur non défini");
+      return;
+  }
     this.token = localStorage.getItem("token");
     if (this.token != null) {
       this.congeService.deleteDemande(id, this.token).subscribe({
         next: (response: any) => {
-          if (this.token != null)
+            this.closeDeleteModal();
+            if (this.token != null)
             this.getCongesByUser(this.token);
         },
         error: (err) => {
@@ -63,20 +67,46 @@ export class EmployeDashComponent {
     }
   }
 
-  updateDemande(id: number) {
+  editerConge(conge:Conge){
+    this.isEditModalOpen=true
+    this.conge=conge
+   }
+   closeModal(){
+    this.isEditModalOpen=false
+   }
+  
+  deleteConge(conge:Conge){
+    this.isDeleteModalOpen=true
+    this.conge=conge
+  }
+  closeDeleteModal(){
+    this.isDeleteModalOpen=false
+  }
+  modifier(id: number | undefined) {
+    if (id === undefined) {
+        console.error("ID utilisateur non défini");
+        return;
+    }
     this.token = localStorage.getItem("token");
-    if (this.token != null) {
-      this.congeService.updateDemande(id, this.token).subscribe({
-        next: (response: any) => {
-          if (this.token != null)
-            this.getCongesByUser(this.token);
-        },
-        error: (err) => {
-          console.error('Erreur lors de la récupération des congés', err);
-        }
-      });
+    const congeData = {
+        dateDebut: this.conge.dateDebut,
+        dateFin: this.conge.dateFin,
+        motif: this.conge.motif
+    };
+    if (this.token) {
+        this.congeService.modifierConge(this.token, congeData, id).subscribe({
+            next: (response: any) => {
+                this.closeModal();
+                if(this.token)
+                this.getCongesByUser(this.token);
+                console.log('Utilisateur modifié avec succès');
+            },
+            error: (err) => {
+                console.error('Erreur lors de la modification de l\'utilisateur', err);
+            }
+        });
     } else {
-      console.error('Token non disponible');
+        console.log("Token invalide");
     }
   }
 }

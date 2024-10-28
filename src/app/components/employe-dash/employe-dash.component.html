@@ -19,9 +19,9 @@
                     <td>{{ c.motif }}</td>
                     <td>{{ c.status }}</td>
                     <td *ngIf="c.id">
-                      <img (click)="openDetailModal(c)" style="width: 25px; height: 25px;" src="images/pencil.png">
+                      <img (click)="editerConge(c)" style="width: 25px; height: 25px;" src="images/edit-text.png">
                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                      <img (click)="deleteDemande(c.id)" style="width: 30px; height: 30px;" src="images/delete.png">
+                      <img (click)="deleteConge(c)" style="width: 25px; height: 25px;" src="images/bin.png">
                     </td>
                   </tr>
                 </tbody>
@@ -32,4 +32,42 @@
       </div>
     </div>
   </div>
+  
+<div *ngIf="isDeleteModalOpen" class="modal" role="dialog" aria-modal="true">
+  <div class="modal-content animated">
+  <button type="button" (click)="closeDeleteModal()" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+   <h3>etes-vous sure de supprimer cette demande</h3>
+    <form (ngSubmit)="deleteDemande(conge.id)">
+      <div class="modal-actions">
+        <button type="submit" class="btn btn-danger">supprimer</button>
+        <button type="button" class="btn btn-secondary" (click)="closeDeleteModal()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div *ngIf="isEditModalOpen" class="modal" role="dialog" aria-modal="true">
+  <div class="modal-content animated">
+    <button type="button" (click)="closeModal()" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+    <form (ngSubmit)="modifier(conge.id)">
+      <div class="form-group">
+        <p><strong>Date de début actuelle:</strong> {{ conge.dateDebut }}</p>
+        <p><strong>Date de fin actuelle:</strong> {{ conge.dateFin }}</p>
+        <label for="dateDebut">Date de début</label>
+        <input type="date" id="dateDebut" name="dateDebut" [(ngModel)]="conge.dateDebut" class="form-control">
+        
+        <label for="dateFin">Date de fin</label>
+        <input type="date" id="dateFin" name="dateFin" [(ngModel)]="conge.dateFin" class="form-control">
+        
+        <label for="motif">Motif</label>
+        <input type="text" id="motif" name="motif" [(ngModel)]="conge.motif" class="form-control">
+      </div>
+      <div class="modal-actions">
+        <button type="submit" class="btn btn-primary">Modifier</button>
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">Annuler</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 </section>

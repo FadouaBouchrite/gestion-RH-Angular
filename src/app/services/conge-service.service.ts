@@ -43,9 +43,9 @@ export class CongeServiceService {
     const headers=this.getHeaders()
     return this.http.delete(this.host+`/employe/deleteConge/${id}`,{headers})
   }
-  updateDemande(id:number,token:string){
+  modifierConge(token:string,congeData:any,id:number){
     this.token=token
     const headers=this.getHeaders()
-    return this.http.put(this.host+`/employe/updateConge/${id}`,{headers})
+    return this.http.put(this.host+`/employe/updateConge/${id}`,congeData,{headers})
   }
 }
