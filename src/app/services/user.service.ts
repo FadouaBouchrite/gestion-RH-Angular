@@ -148,5 +148,15 @@ export class UserService {
     const headers = this.getHeaders();
     return this.http.delete(this.endpoint + `/rh/deleteUser/${id}`, { headers });
   }
-
+  getRhNbr(token:string){
+    this.token=token
+    const headers=this.getHeaders();
+    return this.http.get(this.endpoint + "/rh/getRhNbr", { headers });
+  }
+  getEmplNbr(token:string){
+    this.token=token
+    const headers=this.getHeaders();
+    return this.http.get(this.endpoint + "/rh/getEmplNbr", { headers });
+  }
+  
 }

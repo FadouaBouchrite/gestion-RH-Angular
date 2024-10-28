@@ -28,4 +28,24 @@ export class AbsenceService {
     const headers=this.getHeaders()
     return this.http.post(this.host+"/rh/createAbsence",absData,{headers})
   }
+  getFy(token:string){
+    this.token=token
+    const headers=this.getHeaders();
+    return this.http.get(this.host + "/rh/countByYear/2021", { headers });
+  }
+  getSy(token:string){
+    this.token=token
+    const headers=this.getHeaders();
+    return this.http.get(this.host + "/rh/countByYear/2022", { headers });
+  }
+  getTy(token:string){
+    this.token=token
+    const headers=this.getHeaders();
+    return this.http.get(this.host + "/rh/countByYear/2023", { headers });
+  }
+  getFty(token:string){
+    this.token=token
+    const headers=this.getHeaders();
+    return this.http.get(this.host + "/rh/countByYear/2024", { headers });
+  }
 }
