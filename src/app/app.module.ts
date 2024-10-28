@@ -21,6 +21,7 @@ import { EmplAbsenceComponent } from './empl-absence/empl-absence.component';
 import { RhEmployesComponent } from './components/rh-employes/rh-employes.component';
 import { AddUserComponent } from './components/add-user/add-user.component';
 import { RhAbsencesComponent } from './rh-absences/rh-absences.component';
+import { NgChartsModule } from 'ng2-charts';
 
 
 const appRoutes:Routes=[
@@ -54,7 +55,8 @@ const appRoutes:Routes=[
     AppRoutingModule,
     RouterModule.forRoot(appRoutes),
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgChartsModule
   ],
   providers: [
     provideClientHydration(),
