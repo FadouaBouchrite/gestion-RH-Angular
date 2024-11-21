@@ -52,7 +52,6 @@ export class AddUserComponent {
   openModel(): void {
     this.isModalOpen = true;
   }
-
   closeModal(): void {
     this.isModalOpen = false;
   }

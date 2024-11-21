@@ -88,7 +88,7 @@ export class UserService {
   }
 
   // Méthode utilitaire pour récupérer le token à partir du localStorage
-  private getToken(): string | null {
+  public getToken(): string | null {
     if (isPlatformBrowser(this.platformId)) {
       return localStorage.getItem('token');
     }
@@ -118,6 +118,11 @@ export class UserService {
     this.token=token
     const headers=this.getHeaders()
     return this.http.get(this.endpoint+"/rh/getEmployes",{headers})
+  }
+  getRole(token:string){
+    this.token=token
+    const role=localStorage.getItem("role")
+    return role
   }
 
   getRhs(token:string){

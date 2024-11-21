@@ -11,21 +11,31 @@ import { EmplAbsenceComponent } from './empl-absence/empl-absence.component';
 import { RhEmployesComponent } from './components/rh-employes/rh-employes.component';
 import { AddUserComponent } from './components/add-user/add-user.component';
 import { RhAbsencesComponent } from './rh-absences/rh-absences.component';
+import { AuthGuard } from './auth.guard';
+
 const routes: Routes = [
   { path: 'profile/:id', component: ProfileComponent },
   { path: '', component: LoginComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'rhDash', component: RhDashComponent },
-  { path: 'conge', component: CongeRhComponent },
-  { path: 'employeAbsence', component: EmplAbsenceComponent },
-  { path: 'employeConge', component: EmployeCongeComponent },
-  { path: 'employeDash', component: EmployeDashComponent },
-  {path:'rhEmployes',component:RhEmployesComponent},
-  {path:'addEmploye',component:AddUserComponent},
-  {path:'rhAbsences',component:RhAbsencesComponent}
+  { path: 'rh', component: RhDashComponent },
+  { path: 'employe', component: EmployeDashComponent },
 
-  // Redirection vers la page d'accueil
+  // Routes accessibles uniquement par les employés
+  { path: 'employeDash', component: EmployeDashComponent, canActivate: [AuthGuard], data: { role: 'EMPLOYE' } },
+  { path: 'employeAbsence', component: EmplAbsenceComponent, canActivate: [AuthGuard], data: { role: 'EMPLOYE' } },
+  { path: 'employeConge', component: EmployeCongeComponent, canActivate: [AuthGuard], data: { role: 'EMPLOYE' } },
+  
+  // Routes accessibles uniquement par les RH
+  { path: 'rhDash', component: RhDashComponent, canActivate: [AuthGuard], data: { role: 'RH' } },
+  { path: 'conge', component: CongeRhComponent, canActivate: [AuthGuard], data: { role: 'RH' } },
+  { path: 'rhEmployes', component: RhEmployesComponent, canActivate: [AuthGuard], data: { role: 'RH' } },
+  { path: 'addEmploye', component: AddUserComponent, canActivate: [AuthGuard], data: { role: 'RH' } },
+  { path: 'rhAbsences', component: RhAbsencesComponent, canActivate: [AuthGuard], data: { role: 'RH' } },
+
+  // Route par défaut
+  { path: '**', redirectTo: '' }
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

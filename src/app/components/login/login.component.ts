@@ -39,9 +39,9 @@ export class LoginComponent {
             localStorage.setItem('token', token);
             localStorage.setItem('role', role);
             if (role === 'RH') {
-              this.router.navigate(['rh']); 
+              this.router.navigate(['/rh']); 
             } else if (role === 'EMPLOYE') {
-              this.router.navigate(['employe']); 
+              this.router.navigate(['/employe']); 
             } else {
               console.error('Rôle non reconnu:', role);
             }
