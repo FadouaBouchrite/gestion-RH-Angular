@@ -1,11 +1,11 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
+import { environment } from "../environment/environment"
 @Injectable({
   providedIn: 'root'
 })
 export class AbsenceService {
-  host:string="http://localhost:8080"
+  private apiUrl: string = environment.apiUrl;
   token!:string
   private getHeaders() {
     return new HttpHeaders({
@@ -16,36 +16,36 @@ export class AbsenceService {
   getAllNonJustifiedAbsence(token:string){
     this.token=token
     const headers=this.getHeaders()
-    return this.http.get(this.host+"/employe/getMyAbsences",{headers})
+    return this.http.get(this.apiUrl+"/employe/getMyAbsences",{headers})
   }
   justifierAbsence(token:string,absenceId:number,formData:FormData){
     this.token=token
     const headers=this.getHeaders()
-    return this.http.post(this.host+`/employe/justifierAbs/${absenceId}`,formData,{headers})
+    return this.http.post(this.apiUrl+`/employe/justifierAbs/${absenceId}`,formData,{headers})
   }
   createAbsence(absData:any,token:string){
     this.token=token
     const headers=this.getHeaders()
-    return this.http.post(this.host+"/rh/createAbsence",absData,{headers})
+    return this.http.post(this.apiUrl+"/rh/createAbsence",absData,{headers})
   }
   getFy(token:string){
     this.token=token
     const headers=this.getHeaders();
-    return this.http.get(this.host + "/rh/countByYear/2021", { headers });
+    return this.http.get(this.apiUrl + "/rh/countByYear/2021", { headers });
   }
   getSy(token:string){
     this.token=token
     const headers=this.getHeaders();
-    return this.http.get(this.host + "/rh/countByYear/2022", { headers });
+    return this.http.get(this.apiUrl + "/rh/countByYear/2022", { headers });
   }
   getTy(token:string){
     this.token=token
     const headers=this.getHeaders();
-    return this.http.get(this.host + "/rh/countByYear/2023", { headers });
+    return this.http.get(this.apiUrl + "/rh/countByYear/2023", { headers });
   }
   getFty(token:string){
     this.token=token
     const headers=this.getHeaders();
-    return this.http.get(this.host + "/rh/countByYear/2024", { headers });
+    return this.http.get(this.apiUrl + "/rh/countByYear/2024", { headers });
   }
 }

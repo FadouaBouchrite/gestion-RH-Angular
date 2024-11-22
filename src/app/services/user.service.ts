@@ -4,13 +4,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from '../models/user.model'; // Assurez-vous que ce modèle est bien créé
-
+import { environment } from "../environment/environment"
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  private baseUrl = 'http://localhost:8080/employe'; // Changez l'URL si nécessaire
-  private endpoint="http://localhost:8080"
+  private baseUrl = `${environment.apiUrl}/employe`;
+  private endpoint = environment.apiUrl;
+  
 
   constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object) {}
   token!:string
@@ -31,7 +32,7 @@ export class UserService {
 
   // Méthode de connexion qui retourne l'ID et le token de l'utilisateur
   login(userData: Object): Observable<{ id: number; token: string }> {
-    return this.http.post<any>('http://localhost:8080/auth/login', userData).pipe(
+    return this.http.post<any>(this.endpoint+ "/auth/login", userData).pipe(
       map(response => {
         // Stocker l'ID et le token dans localStorage après la connexion
         if (isPlatformBrowser(this.platformId)) {
@@ -134,7 +135,7 @@ export class UserService {
   createUser(token:string,userData:any){
     this.token=token
     const headers=this.getHeaders()
-    return this.http.post("http://localhost:8080/rh/addUser",userData,{headers})
+    return this.http.post(this.endpoint+ "/rh/addUser",userData,{headers})
   }
 
   addUsers(token:string,file:FormData){
