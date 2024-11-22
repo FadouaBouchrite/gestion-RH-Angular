@@ -1,5 +1,9 @@
 <nav class="navbar">
-    <a routerLink="/home">Home</a>
-    <a *ngIf="userId" [routerLink]="['/profile', userId]">Mon Profil</a>
-  </nav>
-  
+  <div class="dropdown" *ngIf="userId">
+    <button class="dropbtn">Menu</button>
+    <div class="dropdown-content">
+      <a [routerLink]="['/profile', userId]" >Mon Profil</a>
+      <a (click)="onSubmit()">Se déconnecter</a>
+    </div>
+  </div>
+</nav>

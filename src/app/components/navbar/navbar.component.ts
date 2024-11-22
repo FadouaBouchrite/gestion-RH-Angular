@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 
 import {  OnInit } from '@angular/core';
-import { UserService } from '../../services/user.service'; // Service où vous gérez l'authentification
+import { UserService } from '../../services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -10,13 +11,15 @@ import { UserService } from '../../services/user.service'; // Service où vous g
 })
 export class NavbarComponent implements OnInit {
 
-  userId: number| null = null; // Variable pour stocker l'ID utilisateur
+  userId: number| null = null; 
 
-  constructor(private authService: UserService) { }
+  constructor(private authService: UserService,private router: Router) { }
 
   ngOnInit(): void {
-    // Récupérer l'ID utilisateur depuis un service ou le localStorage
-    this.userId = this.authService.getUserId(); // Exemple de récupération d'ID utilisateur
+    this.userId = this.authService.getUserId();
+  }
+  onSubmit(){
+    this.authService.logout()
+    this.router.navigate(['/'])
   }
 }
-
