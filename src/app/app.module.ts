@@ -3,14 +3,14 @@ import { BrowserModule, provideClientHydration } from '@angular/platform-browser
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
 import { ProfileComponent } from './components/profile/profile.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './components/login/login.component'; 
 import { Routes, RouterModule } from '@angular/router';
 import path from 'path';
+import { NavbarComponent } from './components/navbar/navbar.component'; 
 import { RhDashComponent } from './components/rh-dash/rh-dash.component';
 import { EmployeDashComponent } from './components/employe-dash/employe-dash.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
@@ -22,8 +22,8 @@ import { RhEmployesComponent } from './components/rh-employes/rh-employes.compon
 import { AddUserComponent } from './components/add-user/add-user.component';
 import { RhAbsencesComponent } from './rh-absences/rh-absences.component';
 import { NgChartsModule } from 'ng2-charts';
-
-
+import { StorageService } from './storage.service';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 const appRoutes:Routes=[
   {path:'' , component:LoginComponent},
   {path:'login' , component:LoginComponent},
@@ -60,8 +60,11 @@ const appRoutes:Routes=[
   ],
   providers: [
     provideClientHydration(),
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    StorageService,
+    provideHttpClient(withFetch())
   ],
+  schemas:[CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

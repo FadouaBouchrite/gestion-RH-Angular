@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router'; 
 import { UserService } from '../../services/user.service';
-
+import { StorageService } from '../../storage.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -12,7 +12,7 @@ export class LoginComponent {
   email: string = '';
   password: string = '';
   
-  constructor(private userService: UserService,private router: Router) {}
+  constructor(private userService: UserService,private router: Router, private storageService: StorageService) {}
   onSubmit() {
     if (!this.email || !this.password) {
       console.error('Veuillez remplir tous les champs.');
@@ -36,8 +36,8 @@ export class LoginComponent {
           
 
           if (token && role) {
-            localStorage.setItem('token', token);
-            localStorage.setItem('role', role);
+            this.storageService.setItem('token', token);
+            this.storageService.setItem('role', role);
             if (role === 'RH') {
               this.router.navigate(['/rh']); 
             } else if (role === 'EMPLOYE') {
@@ -56,22 +56,22 @@ export class LoginComponent {
   }
 
   logout() {
-    localStorage.removeItem("token");
-    localStorage.removeItem("role");
+    this.storageService.removeItem("token");
+    this.storageService.removeItem("role");
   }
 
   isAuthenticated() {
-    const token = localStorage.getItem("token");
+    const token = this.storageService.getItem("token");
     return token !== null;
   }
 
   isRH() {
-    const role = localStorage.getItem("role");
+    const role = this.storageService.getItem("role");
     return role === "RH";
   }
 
   isEmploye() {
-    const role = localStorage.getItem("role");
+    const role = this.storageService.getItem("role");
     return role === "EMPLOYE";
   }
 }

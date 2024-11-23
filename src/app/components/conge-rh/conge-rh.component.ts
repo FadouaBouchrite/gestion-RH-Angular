@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Conge } from '../../models/conge/conge.module';
 import { CongeServiceService } from '../../services/conge-service.service';
-
+import { StorageService } from '../../storage.service';
 @Component({
   selector: 'app-conge-rh',
   templateUrl: './conge-rh.component.html',
@@ -11,10 +11,10 @@ export class CongeRhComponent implements OnInit {
   conges: Array<Conge> = []; 
   token: string | null = '';
 
-  constructor(private congeService: CongeServiceService) {}
+  constructor(private congeService: CongeServiceService, private storageService: StorageService) {}
 
   ngOnInit(): void {
-    this.token = localStorage.getItem("token");
+    this.token = this.storageService.getItem("token");
     if(this.token!=null)
     this.getAllNonValidatedConges(this.token)
   }

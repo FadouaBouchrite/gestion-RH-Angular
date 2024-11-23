@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Absence } from '../models/absence/absence.module';
 import { AbsenceService } from '../services/absence.service';
-
+import { StorageService } from '../storage.service';
 @Component({
   selector: 'app-empl-absence',
   templateUrl: './empl-absence.component.html',
@@ -10,9 +10,9 @@ import { AbsenceService } from '../services/absence.service';
 export class EmplAbsenceComponent {
   absences: Array<Absence> = []; 
   token: string | null = '';
-  constructor(private absenceService:AbsenceService){}
+  constructor(private absenceService:AbsenceService, private storageService: StorageService){}
   ngOnInit(): void {
-      this.token = localStorage.getItem("token");
+      this.token = this.storageService.getItem("token");
       if(this.token!=null)
       this.getAllNonJustifiedAbsence(this.token)
   }
@@ -51,7 +51,7 @@ export class EmplAbsenceComponent {
     }
     
     sendJustification(absenceId: number, formData: FormData) {
-      const token = localStorage.getItem("token");  // Récupérer le token
+      const token = this.storageService.getItem("token");  // Récupérer le token
     
       if (this.token != null) {
         this.absenceService.justifierAbsence(this.token, absenceId, formData)

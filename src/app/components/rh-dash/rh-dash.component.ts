@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ChartType, ChartData } from 'chart.js';
 import { UserService } from '../../services/user.service';
 import { AbsenceService } from '../../services/absence.service';
-
+import { StorageService } from '../../storage.service';
 @Component({
   selector: 'app-rh-dash',
   templateUrl: './rh-dash.component.html',
@@ -20,10 +20,10 @@ export class RhDashComponent {
   // Compteur pour suivre les données d'absence récupérées
   private absencesFetchedCount: number = 0;
 
-  constructor(private userService: UserService, private absService: AbsenceService) {}
+  constructor(private userService: UserService, private absService: AbsenceService, private storageService: StorageService) {}
 
   ngOnInit(): void {
-    this.token = localStorage.getItem("token");
+    this.token = this.storageService.getItem("token");
     if (this.token) {
       this.calculeNbrRh(this.token);
       this.claculeNbrEmpl(this.token);

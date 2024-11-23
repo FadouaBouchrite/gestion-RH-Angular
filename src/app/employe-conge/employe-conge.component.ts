@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CongeServiceService } from '../services/conge-service.service';
 import { Conge } from '../models/conge/conge.module';
-
+import { StorageService } from '../storage.service';
 
 
 @Component({
@@ -16,7 +16,7 @@ export class EmployeCongeComponent {
   motif: string= '';
  
   
-   constructor(private congeService:CongeServiceService){}
+   constructor(private congeService:CongeServiceService,private storageService: StorageService){}
 
    onSubmit() {
     if (!this.dateDebut || !this.dateFin || !this.motif) {
@@ -40,7 +40,7 @@ export class EmployeCongeComponent {
       motif: this.motif
     };
   
-    this.token = localStorage.getItem("token");
+    this.token = this.storageService.getItem("token");
     if (this.token != null) {
       this.congeService.createConge(congeData, this.token).subscribe({
         next: (response) => {
