@@ -13,10 +13,25 @@ export class EmplAbsenceComponent {
   token: string | null = '';
   constructor(private absenceService:AbsenceService,private localStorageService:LocalStorageService){}
   ngOnInit(): void {
-      this.token = this.localStorageService.getItem("token");
-      if(this.token!=null)
-      this.getAllNonJustifiedAbsence(this.token)
+    // Récupération du token depuis localStorage
+    this.token = this.localStorageService.getItem("token");
+    
+    if (!this.token) {
+      console.warn("Aucun token trouvé dans le localStorage.");
+    } else {
+      console.log("Token récupéré:", this.token);
+    }
   }
+  
+  ngAfterViewInit(): void {
+    // Effectuer l'appel pour les absences une fois que la vue est initialisée
+    if (this.token) {
+      this.getAllNonJustifiedAbsence(this.token);
+    } else {
+      console.warn("Impossible de récupérer les absences non justifiées, le token est manquant.");
+    }
+  }
+  
   getAllNonJustifiedAbsence(token:string){
       if (this.token) {
         this.absenceService.getAllNonJustifiedAbsence(this.token).subscribe({

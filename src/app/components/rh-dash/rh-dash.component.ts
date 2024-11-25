@@ -21,8 +21,11 @@ export class RhDashComponent {
   private absencesFetchedCount: number = 0;
 
   constructor(private userService: UserService, private absService: AbsenceService) {}
-
   ngOnInit(): void {
+    // Utilisation initiale pour éviter un appel prématuré à localStorage dans des environnements SSR
+    console.log("Composant initialisé");
+  }
+  ngAfterViewInit(): void {
     this.token = localStorage.getItem("token");
     if (this.token) {
       this.calculeNbrRh(this.token);
@@ -128,13 +131,20 @@ export class RhDashComponent {
 
   // Méthode pour mettre à jour les données du Bar Chart
   updateBarChartData() {
-    this.barChartData = {
-      labels: ['2021', '2022', '2023', '2024'],
-      datasets: [
-        { data: [this.nbrFy, this.nbrSy, this.nbrTy, this.nbrFty], label: 'Série A' }
-      ]
-    };
-  }
+  this.barChartData = {
+    labels: ['2021', '2022', '2023', '2024'],
+    datasets: [
+      { 
+        data: [this.nbrFy, this.nbrSy, this.nbrTy, this.nbrFty], 
+        label: 'Série A',
+        backgroundColor: ['#34495E', '#34495E', '#34495E', '#34495E'], // Orange et Bleu marine
+        borderColor: ['#34495E', '#34495E', '#34495E', '#34495E'], // Bordures
+        borderWidth: 1
+      }
+    ]
+  };
+}
+
 
   // Méthode pour mettre à jour les données du Pie Chart
   updatePieChartData() {
@@ -143,11 +153,18 @@ export class RhDashComponent {
       this.pieChartData = {
         labels: ['RHs', 'Employés'],
         datasets: [
-          { data: [(this.nbrRhs / total) * 100, (this.nbrEmpl / total) * 100], label: 'Série B' }
+          { 
+            data: [(this.nbrRhs / total) * 100, (this.nbrEmpl / total) * 100], 
+            label: 'Série B',
+            backgroundColor: ['#1ABC9C','#34495E'], // Orange pour RHs, Bleu marine pour Employés
+            borderColor: [ '#1ABC9C','#34495E'], // Bordures
+            borderWidth: 1
+          }
         ]
       };
     }
   }
+  
 
   // Type de graphiques
   public barChartType: ChartType = 'bar';

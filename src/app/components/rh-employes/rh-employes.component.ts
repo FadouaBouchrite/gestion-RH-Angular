@@ -19,14 +19,26 @@ export class RhEmployesComponent {
    employe!:User
 
    constructor(private userService:UserService,private localStorageService:LocalStorageService){}
-   ngOnInit():void{
-    this.token=this.localStorageService.getItem("token")
-    if(this.token){
-    this.getAllEmployes(this.token)
-    console.log("token:"+this.token)
-    this.getAllRhs(this.token)
+   ngOnInit(): void {
+    // Récupérer le token lors de l'initialisation du composant
+    this.token = this.localStorageService.getItem("token");
+    if (!this.token) {
+      console.error("Aucun token trouvé dans le localStorage.");
+    } else {
+      console.log("Token récupéré:", this.token);
     }
-   }
+  }
+  
+  ngAfterViewInit(): void {
+    if (this.token) {
+      // Appels liés à la vue et aux données
+      this.getAllEmployes(this.token);
+      this.getAllRhs(this.token);
+    } else {
+      console.warn("Les appels pour les employés et RH n'ont pas été effectués car le token est manquant.");
+    }
+  }
+  
    getAllEmployes(token:string){
     if (token) {
       this.userService.getEmployes(token).subscribe({

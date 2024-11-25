@@ -14,10 +14,16 @@ export class CongeRhComponent implements OnInit {
 
   constructor(private congeService: CongeServiceService,private localStorageService:LocalStorageService) {}
 
+ 
   ngOnInit(): void {
+    console.log("Composant initialisé");
+  }
+
+  ngAfterViewInit(): void {
     this.token = this.localStorageService.getItem("token");
-    if(this.token!=null)
-    this.getAllNonValidatedConges(this.token)
+    if (this.token) {
+      this.getAllNonValidatedConges(this.token);
+    }
   }
   getAllNonValidatedConges(token:string){
   

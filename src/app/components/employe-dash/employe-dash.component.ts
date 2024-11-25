@@ -19,9 +19,14 @@ export class EmployeDashComponent {
   constructor(private congeService: CongeServiceService,private localStorageService:LocalStorageService) {}
 
   ngOnInit(): void {
+    console.log("Composant initialisé");
+  }
+
+  ngAfterViewInit(): void {
     this.token = this.localStorageService.getItem("token");
-    if (this.token != null)
+    if (this.token) {
       this.getCongesByUser(this.token);
+    }
   }
 
   getCongesByUser(token: string) {
