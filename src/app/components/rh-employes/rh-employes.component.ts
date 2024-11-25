@@ -3,6 +3,7 @@ import { User } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
 import { error } from 'console';
 import { response } from 'express';
+import { LocalStorageService } from '../../services/local-storage.service';
 
 @Component({
   selector: 'app-rh-employes',
@@ -17,9 +18,9 @@ export class RhEmployesComponent {
    isDeleteModalOpen=false
    employe!:User
 
-   constructor(private userService:UserService){}
+   constructor(private userService:UserService,private localStorageService:LocalStorageService){}
    ngOnInit():void{
-    this.token=localStorage.getItem("token")
+    this.token=this.localStorageService.getItem("token")
     if(this.token){
     this.getAllEmployes(this.token)
     console.log("token:"+this.token)
@@ -68,7 +69,7 @@ export class RhEmployesComponent {
         console.error("ID utilisateur non défini");
         return;
     }
-    this.token = localStorage.getItem("token");
+    this.token = this.localStorageService.getItem("token");
     const userData = {
         lastName: this.employe.lastName,
         firstName: this.employe.firstName,
@@ -102,7 +103,7 @@ export class RhEmployesComponent {
           console.error("ID utilisateur non défini");
           return;
       }
-      this.token = localStorage.getItem("token");
+      this.token = this.localStorageService.getItem("token");
       const userData = {
           lastName: this.employe.lastName,
           firstName: this.employe.firstName,
