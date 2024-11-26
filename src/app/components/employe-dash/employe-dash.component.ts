@@ -4,9 +4,10 @@ import { CongeServiceService } from '../../services/conge-service.service';
 import { LocalStorageService } from '../../services/local-storage.service';
 
 @Component({
-  selector: 'app-employe-dash',
-  templateUrl: './employe-dash.component.html',
-  styleUrls: ['./employe-dash.component.css']
+    selector: 'app-employe-dash',
+    templateUrl: './employe-dash.component.html',
+    styleUrls: ['./employe-dash.component.css'],
+    standalone: false
 })
 export class EmployeDashComponent {
   conges: Array<Conge> = []; 

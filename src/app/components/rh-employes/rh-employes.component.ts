@@ -6,9 +6,10 @@ import { response } from 'express';
 import { LocalStorageService } from '../../services/local-storage.service';
 
 @Component({
-  selector: 'app-rh-employes',
-  templateUrl: './rh-employes.component.html',
-  styleUrl: './rh-employes.component.css'
+    selector: 'app-rh-employes',
+    templateUrl: './rh-employes.component.html',
+    styleUrl: './rh-employes.component.css',
+    standalone: false
 })
 export class RhEmployesComponent {
    employes:Array<User>=[]

@@ -4,9 +4,10 @@ import { AbsenceService } from '../services/absence.service';
 import { LocalStorageService } from '../services/local-storage.service';
 
 @Component({
-  selector: 'app-empl-absence',
-  templateUrl: './empl-absence.component.html',
-  styleUrl: './empl-absence.component.css'
+    selector: 'app-empl-absence',
+    templateUrl: './empl-absence.component.html',
+    styleUrl: './empl-absence.component.css',
+    standalone: false
 })
 export class EmplAbsenceComponent {
   absences: Array<Absence> = []; 

@@ -4,9 +4,10 @@ import { UserService } from '../../services/user.service';
 import { AbsenceService } from '../../services/absence.service';
 
 @Component({
-  selector: 'app-rh-dash',
-  templateUrl: './rh-dash.component.html',
-  styleUrls: ['./rh-dash.component.css']
+    selector: 'app-rh-dash',
+    templateUrl: './rh-dash.component.html',
+    styleUrls: ['./rh-dash.component.css'],
+    standalone: false
 })
 export class RhDashComponent {
   nbrRhs!: number;

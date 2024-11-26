@@ -5,9 +5,10 @@ import { error } from 'console';
 import { LocalStorageService } from '../../services/local-storage.service';
 
 @Component({
-  selector: 'app-add-user',
-  templateUrl: './add-user.component.html',
-  styleUrls: ['./add-user.component.css']
+    selector: 'app-add-user',
+    templateUrl: './add-user.component.html',
+    styleUrls: ['./add-user.component.css'],
+    standalone: false
 })
 export class AddUserComponent {
   nom: string = "";

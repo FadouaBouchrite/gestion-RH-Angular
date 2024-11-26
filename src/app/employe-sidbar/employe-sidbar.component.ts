@@ -4,9 +4,10 @@ import { Router } from '@angular/router';
 
 
 @Component({
-  selector: 'app-employe-sidbar',
-  templateUrl: './employe-sidbar.component.html',
-  styleUrl: './employe-sidbar.component.css'
+    selector: 'app-employe-sidbar',
+    templateUrl: './employe-sidbar.component.html',
+    styleUrl: './employe-sidbar.component.css',
+    standalone: false
 })
 export class EmployeSidbarComponent {
 

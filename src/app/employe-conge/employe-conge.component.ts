@@ -6,9 +6,10 @@ import { LocalStorageService } from '../services/local-storage.service';
 
 
 @Component({
-  selector: 'app-employe-conge',
-  templateUrl: './employe-conge.component.html',
-  styleUrl: './employe-conge.component.css'
+    selector: 'app-employe-conge',
+    templateUrl: './employe-conge.component.html',
+    styleUrl: './employe-conge.component.css',
+    standalone: false
 })
 export class EmployeCongeComponent {
   token: string | null = '';

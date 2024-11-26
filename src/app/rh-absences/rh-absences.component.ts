@@ -5,9 +5,10 @@ import { AbsenceService } from '../services/absence.service';
 import { LocalStorageService } from '../services/local-storage.service';
 
 @Component({
-  selector: 'app-rh-absences',
-  templateUrl: './rh-absences.component.html',
-  styleUrl: './rh-absences.component.css'
+    selector: 'app-rh-absences',
+    templateUrl: './rh-absences.component.html',
+    styleUrl: './rh-absences.component.css',
+    standalone: false
 })
 export class RhAbsencesComponent {
 employes:Array<User>=[]

@@ -4,9 +4,10 @@ import { CongeServiceService } from '../../services/conge-service.service';
 import { LocalStorageService } from '../../services/local-storage.service';
 
 @Component({
-  selector: 'app-conge-rh',
-  templateUrl: './conge-rh.component.html',
-  styleUrls: ['./conge-rh.component.css']
+    selector: 'app-conge-rh',
+    templateUrl: './conge-rh.component.html',
+    styleUrls: ['./conge-rh.component.css'],
+    standalone: false
 })
 export class CongeRhComponent implements OnInit {
   conges: Array<Conge> = []; 
