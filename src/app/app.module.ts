@@ -25,6 +25,7 @@ import { NgChartsModule } from 'ng2-charts';
 
 const appRoutes:Routes=[
   {path:'' , component:LoginComponent},
+  {path:'log' , component:LoginComponent},
   {path:'login' , component:LoginComponent},
   {path:'rh' , component:RhDashComponent},
   {path:'employe' , component:EmployeDashComponent},

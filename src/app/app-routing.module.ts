@@ -13,8 +13,8 @@ import { RhAbsencesComponent } from './rh-absences/rh-absences.component';
 import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
+  { path: 'profile/:id', component: LoginComponent },
   { path: '', component: LoginComponent },
-  { path: 'login', component: LoginComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'rh', component: RhDashComponent },
   { path: 'employe', component: EmployeDashComponent },
@@ -32,7 +32,7 @@ const routes: Routes = [
   { path: 'rhAbsences', component: RhAbsencesComponent, canActivate: [AuthGuard], data: { role: 'RH' } },
 
   // Route par défaut
-  { path: '**', redirectTo: '/' }
+  { path: '**', redirectTo: '' }
 ];
 
 
