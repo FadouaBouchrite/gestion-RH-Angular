@@ -25,7 +25,7 @@
           "options": {
             "outputPath": "dist/gestion_rh",
             "index": "src/index.html",
-            "browser": "src/main.ts",
+            "browser": "src/main.ts", 
             "polyfills": [
               "zone.js"
             ],
@@ -42,22 +42,16 @@
               "node_modules/font-awesome/css/font-awesome.css",
               "node_modules/bootstrap-icons/font/bootstrap-icons.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css"
-              
             ],
-            "scripts": [],
-            "server": "src/main.server.ts",
-            "prerender": true,
-            "ssr": {
-              "entry": "server.ts"
-            }
+            "scripts": []
           },
           "configurations": {
             "production": {
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "1MB",   
-                  "maximumError": "1.5MB"   
+                  "maximumWarning": "1MB",
+                  "maximumError": "1.5MB"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -77,6 +71,10 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "port": 3000,
+            "host": "0.0.0.0"
+          },
           "configurations": {
             "production": {
               "buildTarget": "front-rh:build:production"
@@ -107,7 +105,6 @@
             "styles": [
               "@angular/material/prebuilt-themes/azure-blue.css",
               "src/styles.css"
-              
             ],
             "scripts": [],
             "include": [
