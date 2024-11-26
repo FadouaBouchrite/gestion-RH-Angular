@@ -2,11 +2,13 @@ import { Component } from '@angular/core';
 import { User } from '../models/user.model';
 import { UserService } from '../services/user.service';
 import { AbsenceService } from '../services/absence.service';
+import { LocalStorageService } from '../services/local-storage.service';
 
 @Component({
-  selector: 'app-rh-absences',
-  templateUrl: './rh-absences.component.html',
-  styleUrl: './rh-absences.component.css'
+    selector: 'app-rh-absences',
+    templateUrl: './rh-absences.component.html',
+    styleUrl: './rh-absences.component.css',
+    standalone: false
 })
 export class RhAbsencesComponent {
 employes:Array<User>=[]
@@ -14,9 +16,9 @@ token:string|null=''
 dateDebut!:Date
 dateFin!:Date
 email!:string
-constructor(private userService:UserService,private absenceService:AbsenceService){}
+constructor(private userService:UserService,private absenceService:AbsenceService,private localStorageService:LocalStorageService){}
 ngOnInit():void{
-  this.token=localStorage.getItem("token")
+  this.token=this.localStorageService.getItem("token")
   if(this.token){
     this.userService.getEmployes(this.token).subscribe({
       next:(response:any)=>{
@@ -52,7 +54,7 @@ onSubmit(){
     userEmail: this.email
   };
 
-  this.token = localStorage.getItem("token");
+  this.token = this.localStorageService.getItem("token");
   if (this.token != null) {
     this.absenceService.createAbsence(absData, this.token).subscribe({
       next: (response) => {

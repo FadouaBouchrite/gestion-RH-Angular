@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from '../models/user.model'; // Assurez-vous que ce modèle est bien créé
+import { LocalStorageService } from './local-storage.service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,7 @@ export class UserService {
   private baseUrl = 'http://localhost:8080/employe'; // Changez l'URL si nécessaire
   private endpoint="http://localhost:8080"
 
-  constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object) {}
+  constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object,private localStorageService:LocalStorageService) {}
   token!:string
   private getHeaders() {
     return new HttpHeaders({
@@ -23,7 +24,7 @@ export class UserService {
   // Récupérer l'ID de l'utilisateur connecté à partir du localStorage
   getUserId(): number | null {
     if (isPlatformBrowser(this.platformId)) {
-      const id = localStorage.getItem('userId');
+      const id = this.localStorageService.getItem('userId');
       return id ? Number(id) : null;
     }
     return null;
@@ -35,8 +36,8 @@ export class UserService {
       map(response => {
         // Stocker l'ID et le token dans localStorage après la connexion
         if (isPlatformBrowser(this.platformId)) {
-          localStorage.setItem('userId', response.id);
-          localStorage.setItem('token', response.token);
+          this.localStorageService.setItem('userId', response.id);
+          this.localStorageService.setItem('token', response.token);
         }
         return {
           id: response.id,
@@ -90,27 +91,27 @@ export class UserService {
   // Méthode utilitaire pour récupérer le token à partir du localStorage
   public getToken(): string | null {
     if (isPlatformBrowser(this.platformId)) {
-      return localStorage.getItem('token');
+      return this.localStorageService.getItem('token');
     }
     return null;
   }
   logout() {
-    localStorage.removeItem("token");
-    localStorage.removeItem("role");
+    this.localStorageService.removeItem("token");
+    this.localStorageService.removeItem("role");
   }
 
   isAuthenticated() {
-    const token = localStorage.getItem("token");
+    const token = this.localStorageService.getItem("token");
     return token !== null;
   }
 
   isRH() {
-    const role = localStorage.getItem("role");
+    const role = this.localStorageService.getItem("role");
     return role === "RH";
   }
 
   isEmploye() {
-    const role = localStorage.getItem("role");
+    const role = this.localStorageService.getItem("role");
     return role === "EMPLOYE";
   }
 
@@ -121,7 +122,7 @@ export class UserService {
   }
   getRole(token:string){
     this.token=token
-    const role=localStorage.getItem("role")
+    const role=this.localStorageService.getItem("role")
     return role
   }
 

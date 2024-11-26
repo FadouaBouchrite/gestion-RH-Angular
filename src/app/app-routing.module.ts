@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ProfileComponent } from './components/profile/profile.component';
 import { LoginComponent } from './components/login/login.component';
 import { RhDashComponent } from './components/rh-dash/rh-dash.component';
 import { EmployeDashComponent } from './components/employe-dash/employe-dash.component';
@@ -14,8 +13,8 @@ import { RhAbsencesComponent } from './rh-absences/rh-absences.component';
 import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
-  { path: 'profile/:id', component: ProfileComponent },
   { path: '', component: LoginComponent },
+  { path: 'login', component: LoginComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'rh', component: RhDashComponent },
   { path: 'employe', component: EmployeDashComponent },
@@ -33,7 +32,7 @@ const routes: Routes = [
   { path: 'rhAbsences', component: RhAbsencesComponent, canActivate: [AuthGuard], data: { role: 'RH' } },
 
   // Route par défaut
-  { path: '**', redirectTo: '' }
+  { path: '**', redirectTo: '/' }
 ];
 
 

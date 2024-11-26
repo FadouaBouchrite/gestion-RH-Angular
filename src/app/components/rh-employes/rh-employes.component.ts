@@ -3,11 +3,13 @@ import { User } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
 import { error } from 'console';
 import { response } from 'express';
+import { LocalStorageService } from '../../services/local-storage.service';
 
 @Component({
-  selector: 'app-rh-employes',
-  templateUrl: './rh-employes.component.html',
-  styleUrl: './rh-employes.component.css'
+    selector: 'app-rh-employes',
+    templateUrl: './rh-employes.component.html',
+    styleUrl: './rh-employes.component.css',
+    standalone: false
 })
 export class RhEmployesComponent {
    employes:Array<User>=[]
@@ -17,15 +19,27 @@ export class RhEmployesComponent {
    isDeleteModalOpen=false
    employe!:User
 
-   constructor(private userService:UserService){}
-   ngOnInit():void{
-    this.token=localStorage.getItem("token")
-    if(this.token){
-    this.getAllEmployes(this.token)
-    console.log("token:"+this.token)
-    this.getAllRhs(this.token)
+   constructor(private userService:UserService,private localStorageService:LocalStorageService){}
+   ngOnInit(): void {
+    // Récupérer le token lors de l'initialisation du composant
+    this.token = this.localStorageService.getItem("token");
+    if (!this.token) {
+      console.error("Aucun token trouvé dans le localStorage.");
+    } else {
+      console.log("Token récupéré:", this.token);
     }
-   }
+  }
+  
+  ngAfterViewInit(): void {
+    if (this.token) {
+      // Appels liés à la vue et aux données
+      this.getAllEmployes(this.token);
+      this.getAllRhs(this.token);
+    } else {
+      console.warn("Les appels pour les employés et RH n'ont pas été effectués car le token est manquant.");
+    }
+  }
+  
    getAllEmployes(token:string){
     if (token) {
       this.userService.getEmployes(token).subscribe({
@@ -68,7 +82,7 @@ export class RhEmployesComponent {
         console.error("ID utilisateur non défini");
         return;
     }
-    this.token = localStorage.getItem("token");
+    this.token = this.localStorageService.getItem("token");
     const userData = {
         lastName: this.employe.lastName,
         firstName: this.employe.firstName,
@@ -102,7 +116,7 @@ export class RhEmployesComponent {
           console.error("ID utilisateur non défini");
           return;
       }
-      this.token = localStorage.getItem("token");
+      this.token = this.localStorageService.getItem("token");
       const userData = {
           lastName: this.employe.lastName,
           firstName: this.employe.firstName,

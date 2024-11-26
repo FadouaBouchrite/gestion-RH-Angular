@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { Conge } from '../../models/conge/conge.module';
 import { CongeServiceService } from '../../services/conge-service.service';
+import { LocalStorageService } from '../../services/local-storage.service';
 
 @Component({
-  selector: 'app-employe-dash',
-  templateUrl: './employe-dash.component.html',
-  styleUrls: ['./employe-dash.component.css']
+    selector: 'app-employe-dash',
+    templateUrl: './employe-dash.component.html',
+    styleUrls: ['./employe-dash.component.css'],
+    standalone: false
 })
 export class EmployeDashComponent {
   conges: Array<Conge> = []; 
@@ -15,12 +17,17 @@ export class EmployeDashComponent {
   isDeleteModalOpen=false
   conge!:Conge
 
-  constructor(private congeService: CongeServiceService) {}
+  constructor(private congeService: CongeServiceService,private localStorageService:LocalStorageService) {}
 
   ngOnInit(): void {
-    this.token = localStorage.getItem("token");
-    if (this.token != null)
+    console.log("Composant initialisé");
+  }
+
+  ngAfterViewInit(): void {
+    this.token = this.localStorageService.getItem("token");
+    if (this.token) {
       this.getCongesByUser(this.token);
+    }
   }
 
   getCongesByUser(token: string) {
@@ -50,7 +57,7 @@ export class EmployeDashComponent {
       console.error("ID utilisateur non défini");
       return;
   }
-    this.token = localStorage.getItem("token");
+    this.token = this.localStorageService.getItem("token");
     if (this.token != null) {
       this.congeService.deleteDemande(id, this.token).subscribe({
         next: (response: any) => {
@@ -87,7 +94,7 @@ export class EmployeDashComponent {
         console.error("ID utilisateur non défini");
         return;
     }
-    this.token = localStorage.getItem("token");
+    this.token = this.localStorageService.getItem("token");
     const congeData = {
         dateDebut: this.conge.dateDebut,
         dateFin: this.conge.dateFin,

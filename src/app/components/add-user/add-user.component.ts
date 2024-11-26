@@ -2,11 +2,13 @@ import { Component } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { response } from 'express';
 import { error } from 'console';
+import { LocalStorageService } from '../../services/local-storage.service';
 
 @Component({
-  selector: 'app-add-user',
-  templateUrl: './add-user.component.html',
-  styleUrls: ['./add-user.component.css']
+    selector: 'app-add-user',
+    templateUrl: './add-user.component.html',
+    styleUrls: ['./add-user.component.css'],
+    standalone: false
 })
 export class AddUserComponent {
   nom: string = "";
@@ -18,10 +20,10 @@ export class AddUserComponent {
   isModalOpen = false;
   selectedFile: File | null = null;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService,private localStorageService:LocalStorageService) {}
 
   onSubmit() {
-    this.token = localStorage.getItem("token");
+    this.token = this.localStorageService.getItem("token");
     const userData={
       email:this.email,
       firstName:this.prenom,
@@ -68,7 +70,7 @@ export class AddUserComponent {
     }
   }
   onAddUsers(){
-    this.token=localStorage.getItem("token")
+    this.token=this.localStorageService.getItem("token")
     if (this.selectedFile && this.token) {
       const formData = new FormData();
       formData.append('file', this.selectedFile);

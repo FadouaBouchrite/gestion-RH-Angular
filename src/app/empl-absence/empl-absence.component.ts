@@ -1,21 +1,38 @@
 import { Component } from '@angular/core';
 import { Absence } from '../models/absence/absence.module';
 import { AbsenceService } from '../services/absence.service';
+import { LocalStorageService } from '../services/local-storage.service';
 
 @Component({
-  selector: 'app-empl-absence',
-  templateUrl: './empl-absence.component.html',
-  styleUrl: './empl-absence.component.css'
+    selector: 'app-empl-absence',
+    templateUrl: './empl-absence.component.html',
+    styleUrl: './empl-absence.component.css',
+    standalone: false
 })
 export class EmplAbsenceComponent {
   absences: Array<Absence> = []; 
   token: string | null = '';
-  constructor(private absenceService:AbsenceService){}
+  constructor(private absenceService:AbsenceService,private localStorageService:LocalStorageService){}
   ngOnInit(): void {
-      this.token = localStorage.getItem("token");
-      if(this.token!=null)
-      this.getAllNonJustifiedAbsence(this.token)
+    // Récupération du token depuis localStorage
+    this.token = this.localStorageService.getItem("token");
+    
+    if (!this.token) {
+      console.warn("Aucun token trouvé dans le localStorage.");
+    } else {
+      console.log("Token récupéré:", this.token);
+    }
   }
+  
+  ngAfterViewInit(): void {
+    // Effectuer l'appel pour les absences une fois que la vue est initialisée
+    if (this.token) {
+      this.getAllNonJustifiedAbsence(this.token);
+    } else {
+      console.warn("Impossible de récupérer les absences non justifiées, le token est manquant.");
+    }
+  }
+  
   getAllNonJustifiedAbsence(token:string){
       if (this.token) {
         this.absenceService.getAllNonJustifiedAbsence(this.token).subscribe({
@@ -51,7 +68,7 @@ export class EmplAbsenceComponent {
     }
     
     sendJustification(absenceId: number, formData: FormData) {
-      const token = localStorage.getItem("token");  // Récupérer le token
+      const token = this.localStorageService.getItem("token");  // Récupérer le token
     
       if (this.token != null) {
         this.absenceService.justifierAbsence(this.token, absenceId, formData)

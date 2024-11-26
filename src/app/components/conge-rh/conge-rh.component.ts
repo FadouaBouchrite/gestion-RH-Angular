@@ -1,22 +1,30 @@
 import { Component, OnInit } from '@angular/core';
 import { Conge } from '../../models/conge/conge.module';
 import { CongeServiceService } from '../../services/conge-service.service';
+import { LocalStorageService } from '../../services/local-storage.service';
 
 @Component({
-  selector: 'app-conge-rh',
-  templateUrl: './conge-rh.component.html',
-  styleUrls: ['./conge-rh.component.css']
+    selector: 'app-conge-rh',
+    templateUrl: './conge-rh.component.html',
+    styleUrls: ['./conge-rh.component.css'],
+    standalone: false
 })
 export class CongeRhComponent implements OnInit {
   conges: Array<Conge> = []; 
   token: string | null = '';
 
-  constructor(private congeService: CongeServiceService) {}
+  constructor(private congeService: CongeServiceService,private localStorageService:LocalStorageService) {}
 
+ 
   ngOnInit(): void {
-    this.token = localStorage.getItem("token");
-    if(this.token!=null)
-    this.getAllNonValidatedConges(this.token)
+    console.log("Composant initialisé");
+  }
+
+  ngAfterViewInit(): void {
+    this.token = this.localStorageService.getItem("token");
+    if (this.token) {
+      this.getAllNonValidatedConges(this.token);
+    }
   }
   getAllNonValidatedConges(token:string){
   
