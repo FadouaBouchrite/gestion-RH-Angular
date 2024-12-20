@@ -20,7 +20,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let emp of employes">
+                  <tr *ngFor="let emp of paginatedEmployes">
                     <td>{{emp.firstName}}</td>
                     <td>{{emp.lastName}}</td>
                     <td>{{emp.email}}</td>
@@ -32,6 +32,22 @@
                   </tr>
                 </tbody>
               </table>
+              <div class="pagination-controls d-flex align-items-center justify-content-center mt-3">
+                <button 
+                  class="btn btn-outline-primary me-2" 
+                  (click)="onEmployesPageChange(pageEmployes - 1)" 
+                  [disabled]="pageEmployes === 1">
+                  <i class="bi bi-chevron-left"></i> Précédent
+                </button>
+                <span class="mx-3">Page <strong>{{ pageEmployes }}</strong> sur <strong>{{ getTotalPages(employes) }}</strong></span>
+                <button 
+                  class="btn btn-outline-primary ms-2" 
+                  (click)="onEmployesPageChange(pageEmployes + 1)" 
+                  [disabled]="pageEmployes * pageSize >= employes.length">
+                  Suivant <i class="bi bi-chevron-right"></i>
+                </button>
+              </div>
+              
             </div>
           </div>
         </div>
@@ -53,7 +69,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let rh of rhs">
+                  <tr *ngFor="let rh of paginatedRhs">
                         <td>{{rh.firstName}}</td>
                         <td>{{rh.lastName}}</td>
                         <td>{{rh.email}}</td>
@@ -65,6 +81,22 @@
                   </tr>
                 </tbody>
               </table>
+              <div class="pagination-controls d-flex align-items-center justify-content-center mt-3">
+                <button 
+                  class="btn btn-outline-primary me-2" 
+                  (click)="onRhsPageChange(pageRhs - 1)" 
+                  [disabled]="pageRhs === 1">
+                  <i class="bi bi-chevron-left"></i> Précédent
+                </button>
+                <span class="mx-3">Page <strong>{{ pageRhs }}</strong> sur <strong>{{ getTotalPages(rhs) }}</strong></span>
+                <button 
+                  class="btn btn-outline-primary ms-2" 
+                  (click)="onRhsPageChange(pageRhs + 1)" 
+                  [disabled]="pageRhs * pageSize >= rhs.length">
+                  Suivant <i class="bi bi-chevron-right"></i>
+                </button>
+              </div>
+              
             </div>
           </div>
         </div>

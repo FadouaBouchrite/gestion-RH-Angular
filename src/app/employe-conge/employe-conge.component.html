@@ -40,4 +40,33 @@
         </div>
     </div>
     </div>
-   
+    <div>
+        <!-- Icône de chat -->
+        <div class="chat-icon" (click)="toggleChat()">
+          💬
+          <div *ngIf="showNotification" class="notification-dot"></div>
+        </div>
+      
+        <!-- Fenêtre de chat -->
+        <div *ngIf="showChat" class="chat-window">
+          <div class="chat-header">Chat Bot</div>
+      
+          <!-- Messages -->
+          <div class="chat-messages">
+            <div *ngFor="let msg of messages" class="chat-message">
+              <div class="user-message">{{ msg.user }}</div>
+              <div *ngIf="msg.response" class="bot-message">{{ msg.response }}</div>
+            </div>
+          </div>
+      
+          <!-- Entrée utilisateur -->
+          <div class="chat-input">
+            <input
+              [(ngModel)]="userInput"
+              type="text"
+              placeholder="Entrez votre message..."
+            />
+            <button (click)="sendMessage()">Envoyer</button>
+          </div>
+        </div>
+      </div>

@@ -18,6 +18,13 @@ export class RhEmployesComponent {
    isEditModalOpen=false
    isDeleteModalOpen=false
    employe!:User
+   paginatedEmployes: User[] = [];
+  paginatedRhs: User[] = [];
+  page: number = 1;
+  pageSize: number = 5;
+  pageEmployes: number = 1;
+pageRhs: number = 1;
+
 
    constructor(private userService:UserService,private localStorageService:LocalStorageService){}
    ngOnInit(): void {
@@ -46,6 +53,7 @@ export class RhEmployesComponent {
         next: (response: any) => {
           console.log('Réponse de l\'API:', response);
             this.employes = response; 
+            this.paginateEmployes();
         },
         error: (err) => {
           console.error('Erreur lors de la récupération des congés', err);
@@ -61,6 +69,7 @@ export class RhEmployesComponent {
         next: (response: any) => {
           console.log('Réponse de l\'API:', response);
             this.rhs = response; 
+            this.paginateRhs();
         },
         error: (err) => {
           console.error('Erreur lors de la récupération des congés', err);
@@ -140,4 +149,32 @@ export class RhEmployesComponent {
           console.log("Token invalide");
       }
   }
+  
+  getTotalPages(data: User[]): number {
+    return Math.ceil(data.length / this.pageSize);
+  }
+
+ 
+  paginateEmployes(): void {
+    const start = (this.pageEmployes - 1) * this.pageSize;
+    const end = start + this.pageSize;
+    this.paginatedEmployes = this.employes.slice(start, end);
+  }
+  
+  paginateRhs(): void {
+    const start = (this.pageRhs - 1) * this.pageSize;
+    const end = start + this.pageSize;
+    this.paginatedRhs = this.rhs.slice(start, end);
+  }
+  
+  onEmployesPageChange(newPage: number): void {
+    this.pageEmployes = newPage;
+    this.paginateEmployes();
+  }
+  
+  onRhsPageChange(newPage: number): void {
+    this.pageRhs = newPage;
+    this.paginateRhs();
+  }
+  
 }
