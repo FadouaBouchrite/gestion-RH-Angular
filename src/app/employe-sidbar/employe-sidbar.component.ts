@@ -27,4 +27,9 @@ export class EmployeSidbarComponent {
       this.router.navigate(['/employeDash'])
     }
   }
+  chatbotEmpl(){
+    if(this.userService.isAuthenticated() && this.userService.isEmploye()){
+      this.router.navigate(['/chatBot'])
+    }
+  }
 }

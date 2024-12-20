@@ -48,4 +48,24 @@ export class AbsenceService {
     const headers=this.getHeaders();
     return this.http.get(this.host + "/rh/countByYear/2024", { headers });
   }
+  getAllNonJustifiedAbsences(token:string){
+    this.token=token
+    const headers=this.getHeaders();
+    return this.http.get(this.host + "/rh/getJustifiedAbs", { headers });
+  }
+  downloadJustification(justificationId: string,token:string) {
+    this.token=token;
+    const headers=this.getHeaders();
+    return this.http.get(`${this.host}/rh/justification/${justificationId}`, {
+      responseType: 'blob',
+      headers
+    });
+  }
+  verifierJustification(justificationId:string,token:string){
+    this.token=token;
+    const headers=this.getHeaders();
+    return this.http.get(`${this.host}/rh/summarize/${justificationId}`, {
+      headers
+    });
+  }
 }

@@ -21,6 +21,8 @@ import { RhEmployesComponent } from './components/rh-employes/rh-employes.compon
 import { AddUserComponent } from './components/add-user/add-user.component';
 import { RhAbsencesComponent } from './rh-absences/rh-absences.component';
 import { NgChartsModule } from 'ng2-charts';
+import { CeilPipe } from './ceil.pipe';
+import { ChatboatComponent } from './components/chatboat/chatboat.component';
 
 
 const appRoutes:Routes=[
@@ -47,7 +49,9 @@ const appRoutes:Routes=[
     EmplAbsenceComponent,
     RhEmployesComponent,
     AddUserComponent,
-    RhAbsencesComponent
+    RhAbsencesComponent,
+    CeilPipe,
+    ChatboatComponent
   ],
   imports: [
     BrowserModule,

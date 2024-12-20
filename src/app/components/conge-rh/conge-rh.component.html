@@ -1,39 +1,56 @@
 <app-sidebar></app-sidebar>
 <section class="pc-container">
     <div class="pcoded-content">
-    <div className="row">
-        <div class="col-xl-12 col-md-12">
-          <div class="card">
-              <div class="card-body table-border-style">
-                  <div class="table-responsive ">
-                      <table class="table table-hover">
-                          <thead class="thead-dark">
-                            <tr>
-                              <th scope="col">Employe</th>
-                              <th scope="col">Date de debut</th>
-                              <th scope="col">Date de fin</th>
-                              <th scope="col">motif</th>
-                              <th scope="col">Action</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr *ngFor="let c of conges">
-                              <td>{{c.userLastName}} {{c.userFirstName}} </td>
-                              <td>{{c.dateDebut}}</td>
-                              <td>{{c.dateFin}}</td>
-                              <td>{{c.motif}}</td>
-                              <td *ngIf="c.id">
-                                  <img (click)="acceptConge(c.id)" style="width: 25px;height: 25px;" src="images/check.png">
-                                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                  <img (click)="rejectConge(c.id)" style="width: 25px;height: 25px;" src="images/cross-button.png">
-                              </td>
-                            </tr>
-                          </tbody>
-                      </table>
-                  </div>
-              </div>
-          </div>
-      </div>
+        <div class="row">
+            <div class="col-xl-12 col-md-12">
+                <div class="card">
+                    <div class="card-body table-border-style">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">Employe</th>
+                                        <th scope="col">Date de debut</th>
+                                        <th scope="col">Date de fin</th>
+                                        <th scope="col">Motif</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let abs of paginatedData">
+                                        <td>{{ abs.userLastName }} {{ abs.userFirstName }}</td>
+                                        <td>{{ abs.dateDebut }}</td>
+                                        <td>{{ abs.dateFin }}</td>
+                                        <td>{{ abs.motif }}</td>
+                                        <td *ngIf="abs.id">
+                                            <img (click)="acceptConge(abs.id)" style="width: 25px; height: 25px;" src="images/check.png">
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <img (click)="rejectConge(abs.id)" style="width: 25px; height: 25px;" src="images/cross-button.png">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="pagination-controls d-flex align-items-center justify-content-center mt-3">
+                                <button 
+                                    class="btn btn-outline-primary me-2" 
+                                    (click)="onPageChange(page - 1)" 
+                                    [disabled]="page === 1">
+                                    <i class="bi bi-chevron-left"></i> Précédent
+                                </button>
+                                
+                                <span class="mx-3">Page <strong>{{ page }}</strong> sur <strong>{{ getTotalPages() }}</strong></span>
+                                
+                                <button 
+                                    class="btn btn-outline-primary ms-2" 
+                                    (click)="onPageChange(page + 1)" 
+                                    [disabled]="page * pageSize >= conges.length">
+                                    Suivant <i class="bi bi-chevron-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
 </section>
