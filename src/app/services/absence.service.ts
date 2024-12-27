@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class AbsenceService {
-  host:string="http://localhost:8080"
+  host:string="http://gestionrh-production.up.railway.app"
   token!:string
   private getHeaders() {
     return new HttpHeaders({
