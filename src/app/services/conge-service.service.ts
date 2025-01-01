@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class CongeServiceService {
-  host:string="http://gestionrh-production.up.railway.app"
+  host:string="https://gestionrh-production.up.railway.app"
   token!:string
   private getHeaders() {
     return new HttpHeaders({
