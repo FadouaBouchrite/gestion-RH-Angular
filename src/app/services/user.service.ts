@@ -10,8 +10,8 @@ import { LocalStorageService } from './local-storage.service';
   providedIn: 'root',
 })
 export class UserService {
-  private baseUrl = 'http://gestionrh-production.up.railway.app/employe'; // Changez l'URL si nécessaire
-  private endpoint="http://gestionrh-production.up.railway.app"
+  private baseUrl = 'https://gestionrh-production.up.railway.app/employe'; // Changez l'URL si nécessaire
+  private endpoint="https://gestionrh-production.up.railway.app"
 
   constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object,private localStorageService:LocalStorageService) {}
   token!:string
@@ -32,7 +32,7 @@ export class UserService {
 
   // Méthode de connexion qui retourne l'ID et le token de l'utilisateur
   login(userData: Object): Observable<{ id: number; token: string }> {
-    return this.http.post<any>('http://gestionrh-production.up.railway.app/auth/login', userData).pipe(
+    return this.http.post<any>('https://gestionrh-production.up.railway.app/auth/login', userData).pipe(
       map(response => {
         // Stocker l'ID et le token dans localStorage après la connexion
         if (isPlatformBrowser(this.platformId)) {
@@ -135,7 +135,7 @@ export class UserService {
   createUser(token:string,userData:any){
     this.token=token
     const headers=this.getHeaders()
-    return this.http.post("http://gestionrh-production.up.railway.app/rh/addUser",userData,{headers})
+    return this.http.post("https://gestionrh-production.up.railway.app/rh/addUser",userData,{headers})
   }
 
   addUsers(token:string,file:FormData){
