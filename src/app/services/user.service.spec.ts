@@ -35,7 +35,7 @@ describe('UserService', () => {
       expect(response.token).toBe('mockToken');
     });
   
-    const req = httpMock.expectOne('http://gestionrh-production.up.railway.app/auth/login');
+    const req = httpMock.expectOne('https://gestionrh-production.up.railway.app/auth/login');
     expect(req.request.method).toBe('POST');
     req.flush(mockResponse);
   })
@@ -47,7 +47,7 @@ describe('UserService', () => {
       expect(employes).toEqual(mockEmployes);
     });
   
-    const req = httpMock.expectOne('http://gestionrh-production.up.railway.app/rh/getEmployes');
+    const req = httpMock.expectOne('https://gestionrh-production.up.railway.app/rh/getEmployes');
     expect(req.request.method).toBe('GET');
     req.flush(mockEmployes);
   });
@@ -73,7 +73,7 @@ describe('UserService', () => {
       expect(response).toBe(mockResponse);
     });
   
-    const req = httpMock.expectOne(`http://gestionrh-production.up.railway.app/employe/${id}/change-password`);
+    const req = httpMock.expectOne(`https://gestionrh-production.up.railway.app/employe/${id}/change-password`);
     expect(req.request.method).toBe('PUT');
     req.flush(mockResponse);
   });
@@ -90,7 +90,7 @@ describe('UserService', () => {
       expect(user).toEqual(mockUser);
     });
   
-    const req = httpMock.expectOne(`http://gestionrh-production.up.railway.app/employe/1/update-info`);
+    const req = httpMock.expectOne(`https://gestionrh-production.up.railway.app/employe/1/update-info`);
     expect(req.request.method).toBe('PUT');
     req.flush(mockUser);
   });
@@ -105,7 +105,7 @@ describe('UserService', () => {
       expect(user).toEqual(mockUser);
     });
   
-    const req = httpMock.expectOne(`http://gestionrh-production.up.railway.app/employe/${id}`);
+    const req = httpMock.expectOne(`https://gestionrh-production.up.railway.app/employe/${id}`);
     expect(req.request.method).toBe('GET');
     expect(req.request.headers.get('Authorization')).toBe('Bearer mockToken');
     req.flush(mockUser);
