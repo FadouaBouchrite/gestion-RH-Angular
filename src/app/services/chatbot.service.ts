@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class ChatbotService {
 
-  host:string="http://gestionrh-production.up.railway.app"
+  host:string="https://gestionrh-production.up.railway.app"
   token!:string
   private getHeaders() {
     return new HttpHeaders({
